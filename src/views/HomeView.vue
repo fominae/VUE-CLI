@@ -5,6 +5,7 @@
         <img src="../assets/logo.png" alt="logo"/>
       </article>
       <nav>
+        <router-link to="/signup">Регистрация</router-link><br />
         <button @click="getData">Продукты</button>
       </nav>
     </header>
