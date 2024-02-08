@@ -17,6 +17,7 @@
           </form>
           <br/>
         </div>
+        <router-link to="/cart">Корзина</router-link><br />
         <button @click="getData">Продукты</button>
       </nav>
     </header>
@@ -25,6 +26,7 @@
     Название продукта: {{ product.name }} <br/>
     Описание: {{ product.description }} <br/>
     Цена:{{ product.price }}руб. <br/>
+    <button v-if="isAuthenticated" @click="addToCart(product)">В корзину</button>
   </div>
 </template>
 
@@ -33,7 +35,9 @@ export default {
   name: 'HomeView',
   data() {
     return {
+      url: 'https://jurapro.bhuser.ru/api-shop',
       products: [],
+      cartProducts: []
     }
   },
   methods: {
@@ -57,8 +61,26 @@ export default {
     logout() {
       localStorage.removeItem('token');
       this.$router.push('/')
+    },
+    async addToCart(product) {
+      const response = await fetch(`${this.url}/cart/${product.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Result: ', result)
+        this.cartProducts.push(product);
+      } else {
+        this.error = "Ошибка";
+        console.error(this.error);
+      }
     }
   },
+
   computed: {
     isAuthenticated() {
       return !!localStorage.getItem('token');
