@@ -12,7 +12,9 @@
           <br/>
         </div>
         <div v-else>
-          <router-link to="/logout">Выход</router-link>
+          <form @submit="logout">
+          <button type="submit">Выход</button>
+          </form>
           <br/>
         </div>
         <button @click="getData">Продукты</button>
@@ -51,6 +53,10 @@ export default {
         this.error = "Ошибка";
         console.error(this.error);
       }
+    },
+    logout() {
+      localStorage.removeItem('token');
+      this.$router.push('/')
     }
   },
   computed: {
