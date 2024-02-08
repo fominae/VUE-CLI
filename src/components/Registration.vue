@@ -37,6 +37,7 @@ export default {
       })
       console.log('Response: ', response);
       const result = await response.json();
+      this.$router.push('/login')
       console.log('Result: ', result);
     }
   },

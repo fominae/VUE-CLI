@@ -38,6 +38,7 @@ export default {
         const result = await response.json();
         const userToken = result.data.user_token;
         localStorage.setItem('token', userToken);
+        this.$router.push('/')
         console.log('Result:', result);
       } catch(error) {
         console.log('Error:', error)

@@ -5,16 +5,24 @@
         <img src="../assets/logo.png" alt="logo"/>
       </article>
       <nav>
-        <router-link to="/signup">Регистрация</router-link><br />
-        <router-link to="/login">Вход</router-link><br />
+        <div v-if="!isAuthenticated">
+          <router-link to="/signup">Регистрация</router-link>
+          <br/>
+          <router-link to="/login">Вход</router-link>
+          <br/>
+        </div>
+        <div v-else>
+          <router-link to="/logout">Выход</router-link>
+          <br/>
+        </div>
         <button @click="getData">Продукты</button>
       </nav>
     </header>
   </div>
   <div class="catalog" v-for="product in products" :key="product.id">
-    Название продукта: {{ product.name }} <br />
-    Описание: {{ product.description }} <br />
-    Цена:{{ product.price }}руб. <br />
+    Название продукта: {{ product.name }} <br/>
+    Описание: {{ product.description }} <br/>
+    Цена:{{ product.price }}руб. <br/>
   </div>
 </template>
 
@@ -44,12 +52,17 @@ export default {
         console.error(this.error);
       }
     }
+  },
+  computed: {
+    isAuthenticated() {
+      return !!localStorage.getItem('token');
+    }
   }
 }
 </script>
 
 <style>
-.catalog{
+.catalog {
   border: 1px solid black;
   margin: 12px;
 }
