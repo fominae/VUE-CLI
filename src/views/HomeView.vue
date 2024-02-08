@@ -6,6 +6,7 @@
       </article>
       <nav>
         <router-link to="/signup">Регистрация</router-link><br />
+        <router-link to="/login">Вход</router-link><br />
         <button @click="getData">Продукты</button>
       </nav>
     </header>

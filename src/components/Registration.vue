@@ -2,9 +2,9 @@
   <div>
     <h1>Регистрация</h1>
     <form @submit.prevent="authorization">
-      ФИО <input type="text" v-model="fio" required><br />
-      Почта <input type="email" v-model="email" required><br />
-      Пароль <input type="password" v-model="password" required><br />
+      ФИО <input type="text" v-model="fio" required> <br />
+      Почта <input type="email" v-model="email" required> <br />
+      Пароль <input type="password" v-model="password" required> <br />
       <button type="submit">Зарегистрироваться</button>
     </form>
     <a href="/">На главную</a>
