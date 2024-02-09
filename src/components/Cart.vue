@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Корзина</h1>
-    <div class="catalog" v-for="product in products" :key="product.id">
+    <div v-if="products.length===0">
+      <p>Корзина пуста</p>
+    </div>
+    <div class="catalog" v-else v-for="product in products" :key="product.id">
       Название продукта: {{ product.name }} <br/>
       Описание: {{ product.description }} <br/>
       Цена:{{ product.price }}руб. <br/>
