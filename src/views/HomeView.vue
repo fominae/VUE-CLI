@@ -102,7 +102,7 @@ export default {
 
 <style>
 body {
-  font-family: Arial, sans-serif;
+  font-family: Lucida Sans Unicode ;
 }
 
 header {
