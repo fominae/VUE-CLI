@@ -75,16 +75,7 @@ export default {
 .error-text {
   color: #c02a2a;
 }
-.catalog {
-  border: solid rgba(78,78,79,0.7) 0.5px;
-  border-radius: 15px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  flex: 0 0 calc(40% - 220px);
-}
+
 .form{
   display: flex;
   border: solid rgba(78,78,79,0.7) 0.5px;

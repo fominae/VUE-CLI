@@ -1,12 +1,21 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
+  <header>
+    <nav class="nav-container">
+      <div class="home">
+        <router-link to="/">ГЛАВНАЯ</router-link>
+      </div>
+    </nav>
+  </header>
   <article class="modal">
     <form @submit.prevent="login">
-      <h2>Авторизация</h2>
-      Почта <input type="text" v-model="email" :class="{ 'error': emailError }"><br />
+      <h1>Авторизация</h1>
+      <div class="authorization">
+      Почта <input type="text" v-model="email" :class="{ 'error': emailError }">
       <p v-if="emailError" class="error-message">Введите корректный адрес электронной почты</p>
-      Пароль <input type="password" v-model="password" :class="{ 'error': passwordError }"><br />
+      Пароль <input type="password" v-model="password" :class="{ 'error': passwordError }">
       <p v-if="passwordError" class="error-message">Введите пароль</p>
       <button type="submit">Войти</button>
+      </div>
     </form>
   </article>
 </template>
@@ -63,10 +72,37 @@ export default {
 
 <style>
 .error {
-  border-color: red;
+  box-shadow: 0px 0px 15px rgba(248,22,3,0.36);
 }
 
 .error-message {
-  color: red;
+  color: #c02a2a;
 }
+
+input, input[type="email"], input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.authorization{
+  display: flex;
+  border: solid rgba(78,78,79,0.7) 0.5px;
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  flex-direction: column;
+  align-items: center;
+}
+
 </style>
