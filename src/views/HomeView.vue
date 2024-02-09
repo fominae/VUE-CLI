@@ -18,6 +18,7 @@
           <br/>
         </div>
         <router-link to="/cart">Корзина</router-link><br />
+        <router-link to="/order">Заказы</router-link><br />
         <button @click="getData">Продукты</button>
       </nav>
     </header>

@@ -10,6 +10,7 @@
       <button @click="decreaseQuantity(product)">-</button>
       <button @click="removeFromCart(product)">Удалить из корзины</button>
     </div>
+    <button @click="addToOrders" v-if="products.length > 0">Оформить заказ</button>
   </div>
 </template>
 
@@ -67,6 +68,36 @@ export default {
         }
       } catch (error) {
         console.error("Ошибка удаления товара из корзины:", error);
+      }
+    },
+    async addToOrders() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Токен пользователя отсутствует.');
+        return;
+      }
+
+      const url = "https://jurapro.bhuser.ru/api-shop/order";
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.data.message);
+          this.$router.push('/order');
+        } else if (response.status === 422) {
+          const errorData = await response.json();
+          console.error("Ошибка оформления заказа:", errorData.error.message);
+        } else {
+          console.error("Ошибка оформления заказа:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Ошибка оформления заказа:", error);
       }
     },
   },
