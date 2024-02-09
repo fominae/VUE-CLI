@@ -46,13 +46,13 @@ export default {
         });
 
         const result = await response.json();
-        if (result.success) {
+        if (response.status === 200) {
           const userToken = result.data.user_token;
           localStorage.setItem('token', userToken);
           this.$router.push('/')
           console.log('Result:', result);
-        } else {
-          alert(result.message || 'Пользователь не найден');
+        } else if (response.status === 401) {
+          alert('Пользователь не найден');
         }
       } catch(error) {
         console.log('Error:', error)
