@@ -20,6 +20,9 @@
     <div class="notify" v-if="showNotify">
       <p>Авторизация прошла успешно</p>
     </div>
+    <div class="notify" v-if="showNotifyUser">
+      <p>Пользователь не найден</p>
+    </div>
   </article>
 </template>
 
@@ -32,7 +35,8 @@ export default {
       password: '',
       emailError: false,
       passwordError: false,
-      showNotify:false
+      showNotify:false,
+      showNotifyUser:false
     }
   },
   methods: {
@@ -70,7 +74,10 @@ export default {
           }, 1700);
           console.log('Result:', result);
         } else if (response.status === 401) {
-          alert('Пользователь не найден');
+          this.showNotifyUser = true;
+          setTimeout(() => {
+            this.showNotifyUser = false;
+          }, 1700);
         }
       } catch(error) {
         console.log('Error:', error)

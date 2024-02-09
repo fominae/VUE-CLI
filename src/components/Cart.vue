@@ -15,7 +15,7 @@
       Название продукта: {{ product.name }} <br/>
       Описание: {{ product.description }} <br/>
       Цена:{{ product.price }}руб. <br/>
-      Количество: {{ product.quantity }} <br/>
+      Количество: {{ quantity }} <br/>
       <button @click="increaseQuantity(product)">+</button>
       <button @click="decreaseQuantity(product)">-</button>
       <button @click="removeFromCart(product)">Удалить из корзины</button>
@@ -34,7 +34,8 @@ export default {
     return {
       url: 'https://jurapro.bhuser.ru/api-shop',
       products: [],
-      showNotify:false
+      showNotify:false,
+      quantity: 1,
     }
   },
   created() {
@@ -121,6 +122,24 @@ export default {
         console.error("Ошибка оформления заказа:", error);
       }
     },
+    increaseQuantity() {
+      this.quantity++;
+
+    },
+    decreaseQuantity() {
+        if (this.quantity > 0){
+        this.quantity--;
+      }
+    },
+  },
+  mounted() {
+    if (localStorage.getItem('quantity')) {
+      try {
+        this.quantity = JSON.parse(localStorage.getItem('quantity'));
+      } catch (e) {
+        localStorage.removeItem('quantity');
+      }
+    }
   },
 }
 </script>
