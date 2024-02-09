@@ -2,8 +2,10 @@
   <article class="modal">
     <form @submit.prevent="login">
       <h2>Авторизация</h2>
-      Почта <input type="text" v-model="email"><br />
-      Пароль <input type="text" v-model="password"><br />
+      Почта <input type="text" v-model="email" :class="{ 'error': emailError }"><br />
+      <p v-if="emailError" class="error-message">Введите корректный адрес электронной почты</p>
+      Пароль <input type="password" v-model="password" :class="{ 'error': passwordError }"><br />
+      <p v-if="passwordError" class="error-message">Введите пароль</p>
       <button type="submit">Отправить</button>
     </form>
     <a href="/">На главную</a>
@@ -16,11 +18,19 @@ export default {
     return {
       url: 'https://jurapro.bhuser.ru/api-shop',
       email: '',
-      password: ''
+      password: '',
+      emailError: false,
+      passwordError: false
     }
   },
   methods: {
     async login() {
+      this.emailError = !this.email.includes('@');
+      this.passwordError = !this.password;
+
+      if (this.emailError || this.passwordError) {
+        return;
+      }
       const user = {
         email: this.email,
         password: this.password
@@ -36,10 +46,14 @@ export default {
         });
 
         const result = await response.json();
-        const userToken = result.data.user_token;
-        localStorage.setItem('token', userToken);
-        this.$router.push('/')
-        console.log('Result:', result);
+        if (result.success) {
+          const userToken = result.data.user_token;
+          localStorage.setItem('token', userToken);
+          this.$router.push('/')
+          console.log('Result:', result);
+        } else {
+          alert(result.message || 'Пользователь не найден');
+        }
       } catch(error) {
         console.log('Error:', error)
       }
@@ -47,3 +61,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.error {
+  border-color: red;
+}
+
+.error-message {
+  color: red;
+}
+</style>
