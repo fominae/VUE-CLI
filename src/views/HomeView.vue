@@ -29,6 +29,9 @@
     <p class="product-price">Цена: {{ product.price }}руб.</p>
     <button class="button_addToCart" v-if="isAuthenticated" @click="addToCart(product)">В корзину</button></div>
   </transition-group>
+  <div class="notify" v-if="showNotify">
+    <p>Товар добавлен в корзину</p>
+  </div>
 </template>
 
 <script>
@@ -39,7 +42,8 @@ export default {
       url: 'https://jurapro.bhuser.ru/api-shop',
       products: [],
       cartProducts: [],
-      showProducts: false
+      showProducts: false,
+      showNotify:false
     }
   },
   methods: {
@@ -76,6 +80,10 @@ export default {
         const result = await response.json();
         console.log('Result: ', result)
         this.cartProducts.push(product);
+        this.showNotify = true;
+        setTimeout(() => {
+          this.showNotify = false;
+        }, 1700);
       } else {
         this.error = "Ошибка";
         console.error(this.error);

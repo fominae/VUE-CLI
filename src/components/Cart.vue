@@ -15,6 +15,9 @@
     </div>
     <button @click="addToOrders" v-if="products.length > 0">Оформить заказ</button>
   </div>
+  <div class="notify" v-if="showNotify">
+    <p>Товар удален</p>
+  </div>
 </template>
 
 <script>
@@ -24,6 +27,7 @@ export default {
     return {
       url: 'https://jurapro.bhuser.ru/api-shop',
       products: [],
+      showNotify:false
     }
   },
   created() {
@@ -64,7 +68,14 @@ export default {
         });
         if (response.ok) {
           console.log("Товар успешно удален из корзины");
-          location. reload()
+          this.showNotify = true;
+          setTimeout(() => {
+            this.showNotify = false;
+          }, 1700);
+          setTimeout(() => {
+            location. reload()
+          }, 1700);
+
 
         } else {
           console.error("Ошибка удаления товара из корзины:", response.statusText);
@@ -111,5 +122,17 @@ export default {
 .catalog {
   border: 1px solid black;
   margin: 12px;
+}
+.notify {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #787878;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 999;
+  opacity: 70%;
 }
 </style>

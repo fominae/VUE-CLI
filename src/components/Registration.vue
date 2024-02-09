@@ -19,6 +19,9 @@
       <button type="submit">Зарегистрироваться</button>
     </form>
     </div>
+    <div class="notify" v-if="showNotify">
+      <p>Регистрация прошла успешно</p>
+    </div>
   </div>
 </template>
 
@@ -32,7 +35,9 @@ export default {
       password: '',
       fioError: false,
       emailError: false,
-      passwordError: false
+      passwordError: false,
+      showNotify:false
+
     }
   },
   methods: {
@@ -59,7 +64,13 @@ export default {
       })
       console.log('Response: ', response);
       const result = await response.json();
-      this.$router.push('/login')
+      this.showNotify = true;
+      setTimeout(() => {
+        this.showNotify = false;
+      }, 1700);
+      setTimeout(() => {
+        this.$router.push('/login')
+      }, 1700);
       console.log('Result: ', result);
     }
   },
@@ -98,6 +109,18 @@ input[type="text"], input[type="email"], input[type="password"] {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+}
+.notify {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #787878;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 999;
+  opacity: 70%;
 }
 
 </style>

@@ -17,6 +17,9 @@
       <button type="submit">Войти</button>
       </div>
     </form>
+    <div class="notify" v-if="showNotify">
+      <p>Авторизация прошла успешно</p>
+    </div>
   </article>
 </template>
 
@@ -28,7 +31,8 @@ export default {
       email: '',
       password: '',
       emailError: false,
-      passwordError: false
+      passwordError: false,
+      showNotify:false
     }
   },
   methods: {
@@ -57,7 +61,13 @@ export default {
         if (response.status === 200) {
           const userToken = result.data.user_token;
           localStorage.setItem('token', userToken);
-          this.$router.push('/')
+          this.showNotify = true;
+          setTimeout(() => {
+            this.showNotify = false;
+          }, 1700);
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 1700);
           console.log('Result:', result);
         } else if (response.status === 401) {
           alert('Пользователь не найден');
@@ -104,5 +114,16 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
-
+.notify {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #787878;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 999;
+  opacity: 70%;
+}
 </style>
