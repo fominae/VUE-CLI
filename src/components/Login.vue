@@ -6,9 +6,8 @@
       <p v-if="emailError" class="error-message">Введите корректный адрес электронной почты</p>
       Пароль <input type="password" v-model="password" :class="{ 'error': passwordError }"><br />
       <p v-if="passwordError" class="error-message">Введите пароль</p>
-      <button type="submit">Отправить</button>
+      <button type="submit">Войти</button>
     </form>
-    <a href="/">На главную</a>
   </article>
 </template>
 

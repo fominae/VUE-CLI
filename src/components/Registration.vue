@@ -10,7 +10,6 @@
       <p v-if="passwordError" class="error-text">Введите корректный пароль (не меньше 5 символов)</p>
       <button type="submit">Зарегистрироваться</button>
     </form>
-    <a href="/">На главную</a>
   </div>
 </template>
 
