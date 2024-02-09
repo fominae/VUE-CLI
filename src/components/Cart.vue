@@ -1,10 +1,17 @@
 <template>
   <div>
+    <header>
+      <nav class="nav-container">
+        <div class="home">
+          <router-link to="/">ГЛАВНАЯ</router-link>
+        </div>
+      </nav>
+    </header>
     <h1>Корзина</h1>
     <div v-if="products.length===0">
       <p>Корзина пуста</p>
     </div>
-    <div class="catalog" v-else v-for="product in products" :key="product.id">
+    <div class="catalog_cart" v-else v-for="product in products" :key="product.id">
       Название продукта: {{ product.name }} <br/>
       Описание: {{ product.description }} <br/>
       Цена:{{ product.price }}руб. <br/>
@@ -13,7 +20,7 @@
       <button @click="decreaseQuantity(product)">-</button>
       <button @click="removeFromCart(product)">Удалить из корзины</button>
     </div>
-    <button @click="addToOrders" v-if="products.length > 0">Оформить заказ</button>
+    <button class="button_catalog" @click="addToOrders" v-if="products.length > 0">Оформить заказ</button>
   </div>
   <div class="notify" v-if="showNotify">
     <p>Товар удален</p>
@@ -123,6 +130,14 @@ export default {
   border: 1px solid black;
   margin: 12px;
 }
+.catalog_cart{
+  border: solid rgba(78,78,79,0.7) 0.5px;
+  border-radius: 15px;
+  margin-bottom: 50px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
 .notify {
   position: fixed;
   bottom: 20px;
@@ -134,5 +149,9 @@ export default {
   border-radius: 5px;
   z-index: 999;
   opacity: 70%;
+}
+.button_catalog{
+  display: flex;
+  margin: 0 auto;
 }
 </style>
