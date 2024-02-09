@@ -32,6 +32,9 @@
   <div class="notify" v-if="showNotify">
     <p>Товар добавлен в корзину</p>
   </div>
+  <div class="notify" v-if="showNotifyLogout">
+    <p>Вы вышли из аккаунта</p>
+  </div>
 </template>
 
 <script>
@@ -43,7 +46,8 @@ export default {
       products: [],
       cartProducts: [],
       showProducts: false,
-      showNotify:false
+      showNotify:false,
+      showNotifyLogout:false
     }
   },
   methods: {
@@ -66,7 +70,13 @@ export default {
     },
     logout() {
       localStorage.removeItem('token');
-      this.$router.push('/')
+      this.showNotifyLogout = true;
+      setTimeout(() => {
+        this.showNotifyLogout = false;
+      }, 1700);
+      setTimeout(() => {
+        this.$router.push('/')
+      }, 1700);
     },
     async addToCart(product) {
       const response = await fetch(`${this.url}/cart/${product.id}`, {
