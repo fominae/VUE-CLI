@@ -1,19 +1,23 @@
-# my-app
+# Инструкция по запуску проекта
+  1.  Для начала откройте среду разработки
+  2.  Загрузите папку с данным проектом
+  3.  Откройте терминал
+  4.  Установите Vue CLI
+  5.  Перейдите в нужную дерикторию
+  6.  Запустите проект
 
-## Project setup
+### 4. Установка Vue CLI
 ```
-npm install
+npm install -g @vue/cli
 ```
 
-### Compiles and hot-reloads for development
+### 5. Переход в нужную дериктоию
+```
+cd my-app
+```
+
+### 6. Запуск проекта
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
